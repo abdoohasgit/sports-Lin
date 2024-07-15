@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Coaching</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    margin: 0;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar li {
+    margin-left: 1em;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 2em;
+    background-color: #f4f4f4;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar form {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar label {
+    margin-bottom: 0.5em;
+}
+
+.sidebar select, .sidebar input {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.sidebar button {
+    padding: 0.5em 1em;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background-color: #555;
+}
+
+.results {
+    margin-left: 250px;
+    padding: 2em;
+    width: calc(100% - 250px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1em;
+}
+
+.item-container {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-left-logo img {
+    width: 50px;
+}
+
+.main-item img {
+    width: 150px;
+    border-radius: 50%;
+}
+
+.item-heading {
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.item-price {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+}
+
+.item-price sup {
+    color: green;
+}
+
+.btn {
+    background: none;
+    border: 2px solid #000;
+    font-family: "montserrat", sans-serif;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: color 0.4s linear;
+    position: relative;
+}
+
+.btn:hover {
+    color: #fff;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: -1;
+    transition: transform 0.5s;
+    transform-origin: 0 0;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.btn1::before {
+    transform: scaleX(0);
+}
+
+.btn1:hover::before {
+    transform: scaleX(1);
+}
+
+.fixed-menu {
+    position: fixed;
+    top: 4rem; /* Adjusted to be below the navbar */
+    left: 0;
+    width: 240px;
+    height: calc(100% - 4rem); /* Adjusted to be below the navbar */
+    background-color: rgb(242, 148, 7);
+    z-index: 100;
+    overflow-x: hidden;
+    padding: 1rem;
+}
+
+/* Custom style for main content to avoid overlapping with the fixed menu */
+.main-content {
+    margin-top: 4rem; /* Adjusted to be below the navbar */
+    margin-left: 240px; /* Adjusted to avoid overlap with the side menu */
+}
+    </style>
+</head>
+<body>
+    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600 mb-4">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="text-lg font-bold text-gray-900 dark:text-white">Sports Link</a>
+            <div class="flex md:order-2 space-x-4 rtl:space-x-reverse">
+                <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Profile</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="fixed-menu flex flex-col items-center text-white">
+        <!-- Choose Your Sport Text -->
+        <div class="mb-4 text-lg font-semibold text-center text-gray-900 dark:text-gray-300">
+            Choose Your Sport
+        </div>
+        <!-- Fitness Checkbox -->
+        <div class="flex items-center mb-4" style="width: 105px;">
+            <input
+                id="fitness"
+                type="checkbox"
+                value="fitness"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+                for="fitness"
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Fitness</label>
+        </div>
+        <!-- Bodybuilding Checkbox -->
+        <div class="flex items-center mb-4">
+            <input
+                id="bodybuilding"
+                type="checkbox"
+                value="bodybuilding"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+                for="bodybuilding"
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Bodybuilding</label>
+        </div>
+        <!-- Martial Arts Checkbox -->
+        <div class="flex items-center mb-8" style="width: 105px;">
+            <input
+                id="martialarts"
+                type="checkbox"
+                value="martialarts"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+                for="martialarts"
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Martial Arts</label>
+        </div>
+        <!-- Coach Gender Text -->
+        <div class="mb-4 text-lg font-semibold text-center text-gray-900 dark:text-gray-300">
+            Coach Gender
+        </div>
+        <!-- Gender Radio Buttons -->
+        <div class="radio-group flex justify-around mb-8">
+            <!-- Male Radio Button -->
+            <div class="flex items-center" style="width: 80px;">
+                <input
+                    id="male"
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                    for="male"
+                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Male</label>
+            </div>
+            <!-- Female Radio Button -->
+            <div class="flex items-center">
+                <input
+                    id="female"
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                    for="female"
+                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Female</label>
+            </div>
+        </div>
+        <!-- Choose Your Price Text -->
+        <div class="mb-4 text-lg font-semibold text-center text-gray-900 dark:text-gray-300">
+            Choose Your Price
+        </div>
+        <!-- Price Range Slider -->
+        <div class="range-slider mb-8 w-full px-8">
+            <label
+                for="price-range"
+                class="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2 text-center"
+            >Price Range</label>
+            <input
+                type="range"
+                id="price-range"
+                min="0"
+                max="1000"
+                value="200"
+                step="100"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+            />
+            <div class="range-values mt-2 text-center">
+                <span id="price-value" class="text-gray-700">$200</span>
+            </div>
+        </div>
+        <button type="submit" class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-orange-600 rounded-lg border border-orange-700 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>Search
+        </button>
+    </div>
+
+    <!-- Coach Cards Section -->
+    <section id="coach-cards" class="max-w-screen-xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-4 mt-12" style="margin-left: 250px; margin-top: 70px;">
+        
+            <!-- Coach Card 1 -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden">
+                <img src="coach1.jpg" alt="Coach 1" class="w-full h-48 object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Coach Name 1</h2>
+                    <p class="text-gray-700 dark:text-gray-300">$100/hour</p>
+                </div>
+            </div>
+            <!-- Coach Card 2 -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden">
+                <img src="coach2.jpg" alt="Coach 2" class="w-full h-48 object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Coach Name 2</h2>
+                    <p class="text-gray-700 dark:text-gray-300">$120/hour</p>
+                </div>
+            </div>
+            <!-- Coach Card 3 -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden">
+                <img src="coach3.jpg" alt="Coach 3" class="w-full h-48 object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Coach Name 3</h2>
+                    <p class="text-gray-700 dark:text-gray-300">$90/hour</p>
+                </div>
+            </div>
+            <!-- Coach Card 4 -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden">
+                <img src="coach4.jpg" alt="Coach 4" class="w-full h-48 object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Coach Name 4</h2>
+                    <p class="text-gray-700 dark:text-gray-300">$110/hour</p>
+                </div>
+            </div>
+            <!-- Coach Card 5 -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden">
+                <img src="coach5.jpg" alt="Coach 5" class="w-full h-48 object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Coach Name 5</h2>
+                    <p class="text-gray-700 dark:text-gray-300">$95/hour</p>
+                </div>
+            </div>
+            <!-- Coach Card 6 -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden">
+                <img src="coach6.jpg" alt="Coach 6" class="w-full h-48 object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Coach Name 6</h2>
+                    <p class="text-gray-700 dark:text-gray-300">$130/hour</p>
+                </div>
+            </div>
+        
+    </section>
+
+    
+    <script>
+        // Update the displayed price value when the slider is moved
+        const priceRange = document.getElementById('price-range');
+        const priceValue = document.getElementById('price-value');
+        
+        priceRange.addEventListener('input', function() {
+            priceValue.textContent = `$${this.value}`;
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+</html>
